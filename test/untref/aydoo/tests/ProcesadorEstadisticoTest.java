@@ -91,6 +91,19 @@ public class ProcesadorEstadisticoTest {
 	}
 
 	@Test
+	public void elTiempoTotalDeUsoDeLaBicicletaMasUsadaDeberiaSerElEsperadoSegunLosRecorridosCargados()
+			throws IOException, ZipException {
+
+		ProcesadorEstadistico procesador = new ProcesadorEstadistico("data");
+		procesador.cargarRecorridos();
+
+		int tiempoEsperado = 93;
+
+		Assert.assertEquals(tiempoEsperado,
+				procesador.getTiempoTotalDeUsoDeLaBicicletaMasUsada());
+	}
+
+	@Test
 	public void elResultadoDeberiaSerElEsperado() throws IOException,
 			ZipException {
 
@@ -102,6 +115,7 @@ public class ProcesadorEstadisticoTest {
 		String recorridoMasRealizadoEsperado = "20: ONCE - 7: PLAZA ROMA";
 		double tiempoPromedioEsperado = 29.88888888888889;
 		int id_bicicletaUsadaMasTiempoEsperado = 1205;
+		int tiempoTotalDeUsoDeLaBicicletaMasUsada = 93;
 
 		Resultado resultado = procesador.getResultado();
 
@@ -115,6 +129,8 @@ public class ProcesadorEstadisticoTest {
 				resultado.getTiempoPromedioUso());
 		Assert.assertEquals(id_bicicletaUsadaMasTiempoEsperado,
 				resultado.getID_bicicletaUsadaMasTiempo());
+		Assert.assertEquals(tiempoTotalDeUsoDeLaBicicletaMasUsada,
+				resultado.getTiempoTotalDeUsoDeLaBicicletaMasUsada());
 
 	}
 

@@ -132,10 +132,11 @@ public class ProcesadorEstadistico {
 		String recorridoMasRealizado = getRecorridoMasRealizado();
 		double tiempoPromedio = getTiempoPromedioUso();
 		int id_bicicletaUsadaMasTiempo = getBicicletaMasTiempoUtilizada();
+		int tiempoTotalDeUsoDeLaBicicletaMasUsada = getTiempoTotalDeUsoDeLaBicicletaMasUsada();
 
 		Resultado resultado = new Resultado(id_bicicletaMasUsada,
 				id_bicicletaMenosUsada, recorridoMasRealizado, tiempoPromedio,
-				id_bicicletaUsadaMasTiempo);
+				id_bicicletaUsadaMasTiempo, tiempoTotalDeUsoDeLaBicicletaMasUsada);
 
 		return resultado;
 	}
@@ -181,6 +182,11 @@ public class ProcesadorEstadistico {
 			}
 		}
 		return bicicletaId;
+	}
+
+	public int getTiempoTotalDeUsoDeLaBicicletaMasUsada() {
+		int bicicletaMasUsada = getBicicletaMasTiempoUtilizada();
+		return bicicletasPorTiempoDeUso.get(bicicletaMasUsada);
 	}
 
 	public void generarYMLConResultado(Resultado resultado) throws IOException,
