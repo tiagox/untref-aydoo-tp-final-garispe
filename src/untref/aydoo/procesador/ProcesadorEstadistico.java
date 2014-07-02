@@ -28,24 +28,22 @@ public class ProcesadorEstadistico {
 	}
 
 	public int getBicicletaMasUsada() {
-		int idBicicletaMasUsada = 0;
-		int maximo = 0;
-		int idAuxiliar = 0;
-		int cantidadIguales;
+		Map<Integer, Integer> acumuladordeBicicletas = new HashMap<Integer, Integer>();
+		Integer idBicicleta;
+		Integer cantidad;
+		Integer maximo = 0;
+		Integer idBicicletaMasUsada = null;
 
 		for (int i = 0; i < recorridos.size(); i++) {
-			idAuxiliar = recorridos.get(i).getIdBicicleta();
-			cantidadIguales = -1;
+			idBicicleta = recorridos.get(i).getIdBicicleta();
+			cantidad = acumuladordeBicicletas.get(idBicicleta);
+			cantidad = (cantidad != null) ? cantidad + 1 : 1;
 
-			for (int j = 0; j < recorridos.size(); j++) {
-				if (recorridos.get(j).getIdBicicleta() == idAuxiliar) {
-					cantidadIguales++;
-				}
-			}
+			acumuladordeBicicletas.put(idBicicleta, cantidad);
 
-			if (cantidadIguales > maximo) {
-				maximo = cantidadIguales;
-				idBicicletaMasUsada = idAuxiliar;
+			if (cantidad > maximo) {
+				maximo = cantidad;
+				idBicicletaMasUsada = idBicicleta;
 			}
 		}
 
@@ -53,24 +51,25 @@ public class ProcesadorEstadistico {
 	}
 
 	public int getBicicletaMenosUsada() {
-		int idBicicletaMenosUsada = 0;
-		int minimo = recorridos.size();
-		int idAuxiliar = 0;
-		int cantidadIguales;
+		Map<Integer, Integer> acumuladordeBicicletas = new HashMap<Integer, Integer>();
+		Integer idBicicleta;
+		Integer cantidad;
+		Integer minimo = recorridos.size();
+		Integer idBicicletaMenosUsada = null;
 
 		for (int i = 0; i < recorridos.size(); i++) {
-			idAuxiliar = recorridos.get(i).getIdBicicleta();
-			cantidadIguales = -1;
+			idBicicleta = recorridos.get(i).getIdBicicleta();
+			cantidad = acumuladordeBicicletas.get(idBicicleta);
+			cantidad = (cantidad != null) ? cantidad + 1 : 1;
 
-			for (int j = 0; j < recorridos.size(); j++) {
-				if (recorridos.get(j).getIdBicicleta() == idAuxiliar) {
-					cantidadIguales++;
-				}
-			}
+			acumuladordeBicicletas.put(idBicicleta, cantidad);
+		}
 
-			if (cantidadIguales < minimo) {
-				minimo = cantidadIguales;
-				idBicicletaMenosUsada = idAuxiliar;
+		for (Entry<Integer, Integer> entry : acumuladordeBicicletas.entrySet()) {
+			cantidad = entry.getValue();
+			if (cantidad < minimo) {
+				minimo = cantidad;
+				idBicicletaMenosUsada = entry.getKey();
 			}
 		}
 
@@ -91,31 +90,26 @@ public class ProcesadorEstadistico {
 	}
 
 	public String getRecorridoMasRealizado() {
-		RecorridoPorBicicleta recorridoMasRealizado = null;
-		RecorridoPorBicicleta recorridoAuxiliar;
-		int maximo = 0;
-		int cantidadIguales;
+		Map<String, Integer> acumuladordeParesOrigenDestino = new HashMap<String, Integer>();
+		String parOrigenDestino;
+		Integer cantidad;
+		Integer maximo = 0;
+		String parOrigenDestinoMasUsado = null;
 
 		for (int i = 0; i < recorridos.size(); i++) {
-			recorridoAuxiliar = recorridos.get(i);
-			cantidadIguales = -1;
+			parOrigenDestino = recorridos.get(i).getParOrigenDestino();
+			cantidad = acumuladordeParesOrigenDestino.get(parOrigenDestino);
+			cantidad = (cantidad != null) ? cantidad + 1 : 1;
 
-			for (int j = 0; j < recorridos.size(); j++) {
-				if (recorridos.get(j).getIdEstacionOrigen() == recorridoAuxiliar
-						.getIdEstacionOrigen()
-						&& recorridos.get(j).getIdEstacionDestino() == recorridoAuxiliar
-								.getIdEstacionDestino()) {
-					cantidadIguales++;
-				}
-			}
+			acumuladordeParesOrigenDestino.put(parOrigenDestino, cantidad);
 
-			if (cantidadIguales > maximo) {
-				maximo = cantidadIguales;
-				recorridoMasRealizado = recorridoAuxiliar;
+			if (cantidad > maximo) {
+				maximo = cantidad;
+				parOrigenDestinoMasUsado = parOrigenDestino;
 			}
 		}
 
-		return recorridoMasRealizado.getParOrigenDestino();
+		return parOrigenDestinoMasUsado;
 	}
 
 	public int getBicicletaMasTiempoUtilizada() {
