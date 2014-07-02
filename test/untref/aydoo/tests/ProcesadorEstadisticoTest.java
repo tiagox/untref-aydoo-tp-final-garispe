@@ -72,7 +72,7 @@ public class ProcesadorEstadisticoTest {
 		ProcesadorEstadistico procesador = new ProcesadorEstadistico("data");
 		procesador.cargarRecorridos();
 
-		String recorridoEsperado = "20: ONCE - 7: PLAZA ROMA";
+		String recorridoEsperado = "20 - 7";
 
 		Assert.assertEquals(recorridoEsperado,
 				procesador.getRecorridoMasRealizado());
@@ -112,7 +112,7 @@ public class ProcesadorEstadisticoTest {
 
 		int id_bicicletaMasUsadaEsparado = 1205;
 		int id_bicicletaMenosUsadaEsperado = 1524;
-		String recorridoMasRealizadoEsperado = "20: ONCE - 7: PLAZA ROMA";
+		String recorridoMasRealizadoEsperado = "20 - 7";
 		double tiempoPromedioEsperado = 29.88888888888889;
 		int id_bicicletaUsadaMasTiempoEsperado = 1205;
 		int tiempoTotalDeUsoDeLaBicicletaMasUsada = 93;

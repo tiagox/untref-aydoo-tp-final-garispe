@@ -2,25 +2,25 @@ package untref.aydoo.procesador;
 
 public class Resultado {
 
-	private int ID_bicicletaMasUsada;
-	private int ID_bicicletaMenosUsada;
+	private int idBicicletaMasUsada;
+	private int idBicicletaMenosUsada;
 	private String recorridoMasRealizado;
 	private double tiempoPromedioUso;
-	private int ID_bicicletaUsadaMasTiempo;
+	private int idBicicletaUsadaMasTiempo;
 	private int tiempoTotalDeUsoDeLaBicicletaMasUsada;
 
 	public Resultado() {
 	}
 
-	public Resultado(int ID_bicicletaMasUsada, int ID_bicicletaMenosUsada,
-			String recorridoMasRealizada, double tiempoPromedioUso,
-			int ID_bicicletaUsadaMasTiempo, int tiempoTotalDeUsoDeLaBicicletaMasUsada) {
-
-		this.ID_bicicletaMasUsada = ID_bicicletaMasUsada;
-		this.ID_bicicletaMenosUsada = ID_bicicletaMenosUsada;
-		this.recorridoMasRealizado = recorridoMasRealizada;
+	public Resultado(int idBicicletaMasUsada, int idBicicletaMenosUsada,
+			String recorridoMasRealizado, double tiempoPromedioUso,
+			int idBicicletaUsadaMasTiempo,
+			int tiempoTotalDeUsoDeLaBicicletaMasUsada) {
+		this.idBicicletaMasUsada = idBicicletaMasUsada;
+		this.idBicicletaMenosUsada = idBicicletaMenosUsada;
+		this.recorridoMasRealizado = recorridoMasRealizado;
 		this.tiempoPromedioUso = tiempoPromedioUso;
-		this.ID_bicicletaUsadaMasTiempo = ID_bicicletaUsadaMasTiempo;
+		this.idBicicletaUsadaMasTiempo = idBicicletaUsadaMasTiempo;
 		this.tiempoTotalDeUsoDeLaBicicletaMasUsada = tiempoTotalDeUsoDeLaBicicletaMasUsada;
 
 	}
@@ -35,27 +35,27 @@ public class Resultado {
 	}
 
 	public int getID_bicicletaUsadaMasTiempo() {
-		return ID_bicicletaUsadaMasTiempo;
+		return idBicicletaUsadaMasTiempo;
 	}
 
 	public void setID_bicicletaUsadaMasTiempo(int iD_bicicletaUsadaMasTiempo) {
-		ID_bicicletaUsadaMasTiempo = iD_bicicletaUsadaMasTiempo;
+		idBicicletaUsadaMasTiempo = iD_bicicletaUsadaMasTiempo;
 	}
 
 	public int getID_bicicletaMasUsada() {
-		return ID_bicicletaMasUsada;
+		return idBicicletaMasUsada;
 	}
 
 	public void setID_bicicletaMasUsada(int iD_bicicletaMasUsada) {
-		ID_bicicletaMasUsada = iD_bicicletaMasUsada;
+		idBicicletaMasUsada = iD_bicicletaMasUsada;
 	}
 
 	public int getID_bicicletaMenosUsada() {
-		return ID_bicicletaMenosUsada;
+		return idBicicletaMenosUsada;
 	}
 
 	public void setID_bicicletaMenosUsada(int iD_bicicletaMenosUsada) {
-		ID_bicicletaMenosUsada = iD_bicicletaMenosUsada;
+		idBicicletaMenosUsada = iD_bicicletaMenosUsada;
 	}
 
 	public String getRecorridoMasRealizado() {

@@ -18,31 +18,25 @@ public class ManejadorArchivos {
 	File directorio;
 
 	public ManejadorArchivos(String rutaDir) {
-
 		this.directorio = new File(rutaDir);
 	}
 
 	public void escribirYML(Resultado resultado) throws IOException {
-
 		Yaml.dump(resultado, new File(directorio.getName() + "/resultado.yml"));
 	}
 
 	public void descomprimirZIP(File archivo) throws IOException, ZipException {
-
 		ZipFile zip = new ZipFile(archivo);
 		zip.extractAll(directorio.getPath());
-		System.out.println("*** [Extraccion de Archivos finalizada] ***\n");
+		System.out.println("*** [Extraccion de Archivos finalizada] ***");
 	}
 
 	public List<File> getListaZIPs() {
-
 		File[] archivos = directorio.listFiles();
 		List<File> ZIPs = new ArrayList<File>();
 
 		for (int i = 0; i < archivos.length; i++) {
-
 			if (archivos[i].isFile() && archivos[i].getName().endsWith(".zip")) {
-
 				ZIPs.add(archivos[i]);
 			}
 		}
@@ -59,9 +53,7 @@ public class ManejadorArchivos {
 		archivos = directorio.listFiles();
 
 		for (int i = 0; i < archivos.length; i++) {
-
 			if (archivos[i].isFile() && archivos[i].getName().endsWith(".zip")) {
-
 				recorridos.addAll(this.obtenerRecorridos(archivos[i]));
 			}
 		}
@@ -80,15 +72,12 @@ public class ManejadorArchivos {
 		archivos = directorio.listFiles();
 
 		for (int i = 0; i < archivos.length; i++) {
-
 			if (archivos[i].isFile() && archivos[i].getName().endsWith(".csv")) {
-
 				recorridos.addAll(this.parsearCSV(archivos[i]));
 			}
 		}
 
 		return recorridos;
-
 	}
 
 	public List<RecorridoPorBicicleta> parsearCSV(File archivo)
@@ -108,25 +97,15 @@ public class ManejadorArchivos {
 			RecorridoPorBicicleta recorrido = new RecorridoPorBicicleta();
 
 			try {
-
-				recorrido.setID_usuario(Integer.parseInt(linea[0]));
-				recorrido.setID_bicicleta(Integer.parseInt(linea[1]));
-
-				recorrido.setFechaOrigen(linea[2]);
-				recorrido.setID_estacionOrigen(Integer.parseInt(linea[3]));
-				recorrido.setNombreOrigen(linea[4]);
-
-				recorrido.setFechaDestino(linea[5]);
-				recorrido.setID_estacionDestino(Integer.parseInt(linea[6]));
-				recorrido.setNombreDestino(linea[7]);
-
+				recorrido.setIdBicicleta(Integer.parseInt(linea[1]));
+				recorrido.setIdEstacionOrigen(Integer.parseInt(linea[3]));
+				recorrido.setIdEstacionDestino(Integer.parseInt(linea[6]));
 				recorrido.setTiempoUso(Integer.parseInt(linea[8]));
 
 				recorridos.add(recorrido);
 
 				// Por lineas con errores en ultimo campo
 			} catch (NumberFormatException e) {
-
 				recorrido.setTiempoUso(0);
 			}
 		}

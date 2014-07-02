@@ -15,7 +15,7 @@ public class ProcesadorEstadistico {
 
 	private ManejadorArchivos manejadorArchivos;
 	private List<RecorridoPorBicicleta> recorridos;
-	Map<Integer, Integer> bicicletasPorTiempoDeUso;
+	private Map<Integer, Integer> bicicletasPorTiempoDeUso;
 	private boolean daemon;
 
 	public ProcesadorEstadistico(String rutaDirectorio) {
@@ -27,62 +27,54 @@ public class ProcesadorEstadistico {
 		this.recorridos = this.manejadorArchivos.cargarRecorridos();
 	}
 
-	public void setDaemon(boolean daemon) {
-		this.daemon = daemon;
-	}
-
-	public boolean esModoDaemon() {
-		return this.daemon;
-	}
-
 	public int getBicicletaMasUsada() {
-		int ID_bicicletaMasUsada = 0;
+		int idBicicletaMasUsada = 0;
 		int maximo = 0;
-		int ID_auxiliar = 0;
+		int idAuxiliar = 0;
 		int cantidadIguales;
 
 		for (int i = 0; i < recorridos.size(); i++) {
-			ID_auxiliar = recorridos.get(i).getID_bicicleta();
+			idAuxiliar = recorridos.get(i).getIdBicicleta();
 			cantidadIguales = -1;
 
 			for (int j = 0; j < recorridos.size(); j++) {
-				if (recorridos.get(j).getID_bicicleta() == ID_auxiliar) {
+				if (recorridos.get(j).getIdBicicleta() == idAuxiliar) {
 					cantidadIguales++;
 				}
 			}
 
 			if (cantidadIguales > maximo) {
 				maximo = cantidadIguales;
-				ID_bicicletaMasUsada = ID_auxiliar;
+				idBicicletaMasUsada = idAuxiliar;
 			}
 		}
 
-		return ID_bicicletaMasUsada;
+		return idBicicletaMasUsada;
 	}
 
 	public int getBicicletaMenosUsada() {
-		int ID_bicicletaMenosUsada = 0;
+		int idBicicletaMenosUsada = 0;
 		int minimo = recorridos.size();
-		int ID_auxiliar = 0;
+		int idAuxiliar = 0;
 		int cantidadIguales;
 
 		for (int i = 0; i < recorridos.size(); i++) {
-			ID_auxiliar = recorridos.get(i).getID_bicicleta();
+			idAuxiliar = recorridos.get(i).getIdBicicleta();
 			cantidadIguales = -1;
 
 			for (int j = 0; j < recorridos.size(); j++) {
-				if (recorridos.get(j).getID_bicicleta() == ID_auxiliar) {
+				if (recorridos.get(j).getIdBicicleta() == idAuxiliar) {
 					cantidadIguales++;
 				}
 			}
 
 			if (cantidadIguales < minimo) {
 				minimo = cantidadIguales;
-				ID_bicicletaMenosUsada = ID_auxiliar;
+				idBicicletaMenosUsada = idAuxiliar;
 			}
 		}
 
-		return ID_bicicletaMenosUsada;
+		return idBicicletaMenosUsada;
 	}
 
 	public double getTiempoPromedioUso() {
@@ -109,10 +101,10 @@ public class ProcesadorEstadistico {
 			cantidadIguales = -1;
 
 			for (int j = 0; j < recorridos.size(); j++) {
-				if (recorridos.get(j).getID_estacionOrigen() == recorridoAuxiliar
-						.getID_estacionOrigen()
-						&& recorridos.get(j).getID_estacionDestino() == recorridoAuxiliar
-								.getID_estacionDestino()) {
+				if (recorridos.get(j).getIdEstacionOrigen() == recorridoAuxiliar
+						.getIdEstacionOrigen()
+						&& recorridos.get(j).getIdEstacionDestino() == recorridoAuxiliar
+								.getIdEstacionDestino()) {
 					cantidadIguales++;
 				}
 			}
@@ -124,21 +116,6 @@ public class ProcesadorEstadistico {
 		}
 
 		return recorridoMasRealizado.getParOrigenDestino();
-	}
-
-	public Resultado getResultado() {
-		int id_bicicletaMasUsada = getBicicletaMasUsada();
-		int id_bicicletaMenosUsada = getBicicletaMenosUsada();
-		String recorridoMasRealizado = getRecorridoMasRealizado();
-		double tiempoPromedio = getTiempoPromedioUso();
-		int id_bicicletaUsadaMasTiempo = getBicicletaMasTiempoUtilizada();
-		int tiempoTotalDeUsoDeLaBicicletaMasUsada = getTiempoTotalDeUsoDeLaBicicletaMasUsada();
-
-		Resultado resultado = new Resultado(id_bicicletaMasUsada,
-				id_bicicletaMenosUsada, recorridoMasRealizado, tiempoPromedio,
-				id_bicicletaUsadaMasTiempo, tiempoTotalDeUsoDeLaBicicletaMasUsada);
-
-		return resultado;
 	}
 
 	public int getBicicletaMasTiempoUtilizada() {
@@ -157,7 +134,7 @@ public class ProcesadorEstadistico {
 		Integer tiempoDeUsoAcumulado;
 
 		for (RecorridoPorBicicleta recorrido : recorridos) {
-			bicicletaId = recorrido.getID_bicicleta();
+			bicicletaId = recorrido.getIdBicicleta();
 			tiempoDeUso = recorrido.getTiempoUso();
 
 			tiempoDeUsoAcumulado = bicicletasPorTiempoDeUso.get(bicicletaId);
@@ -189,6 +166,22 @@ public class ProcesadorEstadistico {
 		return bicicletasPorTiempoDeUso.get(bicicletaMasUsada);
 	}
 
+	public Resultado getResultado() {
+		int idBicicletaMasUsada = getBicicletaMasUsada();
+		int idBicicletaMenosUsada = getBicicletaMenosUsada();
+		String recorridoMasRealizado = getRecorridoMasRealizado();
+		double tiempoPromedio = getTiempoPromedioUso();
+		int idBicicletaUsadaMasTiempo = getBicicletaMasTiempoUtilizada();
+		int tiempoTotalDeUsoDeLaBicicletaMasUsada = getTiempoTotalDeUsoDeLaBicicletaMasUsada();
+
+		Resultado resultado = new Resultado(idBicicletaMasUsada,
+				idBicicletaMenosUsada, recorridoMasRealizado, tiempoPromedio,
+				idBicicletaUsadaMasTiempo,
+				tiempoTotalDeUsoDeLaBicicletaMasUsada);
+
+		return resultado;
+	}
+
 	public void generarYMLConResultado(Resultado resultado) throws IOException,
 			ZipException {
 		this.manejadorArchivos.escribirYML(resultado);
@@ -196,6 +189,14 @@ public class ProcesadorEstadistico {
 
 	public void borrarRecorridosCargados() {
 		this.recorridos.clear();
+	}
+
+	public void setDaemon(boolean daemon) {
+		this.daemon = daemon;
+	}
+
+	public boolean esModoDaemon() {
+		return this.daemon;
 	}
 
 	public void modoDaemon() throws IOException, ZipException {
