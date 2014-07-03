@@ -123,3 +123,12 @@ Más allá de los cambios realizados sobre el código, se podría mejorar aún m
 * En lugar de recorrer las listas de recorridos para generar cada uno de los datos, se podría tener los totales pre-calculados y trabajar sobre estos.
 * Leer los registros directamente desde el archivo Zip, sin descomprimir al disco los CSV.
 
+## Conclusiones.
+
+A pesar de la primera impresión, en donde podría suponerse que el problema de la limitación de memoria y el excesivo tiempo de ejecución, es provocado porque cada uno de los registro de los archivos analizados eran almacenados en memoria como objetos y luego recorridos cada vez, no fue el principal cuello de botella.
+
+Otro de los puntos en donde se estaba utilizando una enorme cantidad de recursos era en el calculo de los diferentes datos que se requerian de los archivos provistos. En este punto los metodos estaba trabajando un orden de complejidad de O(n²), debido a utilizar dos for anidados que recorrian todo el listado de recorridos en memoria.
+
+Bajar el order a O(2n) fue la solución que permitio que el programa finalizara en muy pocos segundos, a comparación de cuando solo finalizaba si el archivos de entrada era lo suficientemente chico.
+
+A nivel de dominio, la aplicación es correcta, no fue necesario modificar nada en la arquitectura de las clases para mejorar los tiempos.
